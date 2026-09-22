@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="theme-color" content="#111827">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Workshop Shift">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
+<title>Workshop Shift</title>
+<style>
+:root{--bg:#f6f7f9;--card:#fff;--ink:#111827;--muted:#6b7280;--line:#e5e7eb;--accent:#111827;--good:#138a4b;--warn:#c77a00;--danger:#b42318;--radius:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif}button,input,select,textarea{font:inherit}.app{max-width:560px;margin:0 auto;min-height:100vh;padding:env(safe-area-inset-top) 14px calc(90px + env(safe-area-inset-bottom))}.top{display:flex;align-items:center;justify-content:space-between;padding:16px 4px 12px}.brand{font-weight:800;font-size:22px}.sub{font-size:13px;color:var(--muted)}.pill{border:1px solid var(--line);border-radius:999px;padding:8px 10px;background:#fff;font-size:13px}.card{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;margin:10px 0;box-shadow:0 2px 12px rgba(17,24,39,.04)}.hero{text-align:center;padding:28px 18px}.timer{font-size:44px;font-variant-numeric:tabular-nums;font-weight:800;letter-spacing:-1px;margin:8px 0}.label{font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em}.row{display:grid;grid-template-columns:1fr 1fr;gap:10px}.btn{width:100%;border:0;border-radius:16px;padding:15px 14px;font-weight:700;background:#eef0f3;color:var(--ink);cursor:pointer}.btn.primary{background:var(--accent);color:#fff}.btn.good{background:#e9f8ef;color:#0f6b3b}.btn.warn{background:#fff4dd;color:#8a5500}.btn.danger{background:#ffe9e7;color:#9c2a22}.btn:active{transform:scale(.99)}.section-title{font-size:18px;font-weight:800;margin:18px 2px 8px}.field{margin:12px 0}.field label{display:block;font-size:13px;color:var(--muted);margin:0 0 6px}.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);border-radius:14px;padding:13px 12px;background:#fff;color:var(--ink)}.kpis{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}.kpi{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}.kpi b{display:block;font-size:20px;margin-top:4px}.list{display:flex;flex-direction:column;gap:8px}.item{padding:14px;border:1px solid var(--line);border-radius:16px;background:#fff}.item-head{display:flex;justify-content:space-between;gap:10px;align-items:start}.money{font-weight:800}.status{font-size:12px;border-radius:999px;padding:5px 8px;background:#eef0f3}.status.good{background:#e9f8ef;color:#0f6b3b}.status.warn{background:#fff4dd;color:#8a5500}.muted{color:var(--muted)}.hidden{display:none!important}.bottom{position:fixed;left:0;right:0;bottom:0;background:rgba(255,255,255,.94);backdrop-filter:blur(12px);border-top:1px solid var(--line);padding:8px max(10px,env(safe-area-inset-left)) calc(8px + env(safe-area-inset-bottom)) max(10px,env(safe-area-inset-right));z-index:10}.bottom-inner{max-width:560px;margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:6px}.nav{border:0;background:transparent;border-radius:12px;padding:8px 4px;font-size:12px;color:var(--muted)}.nav.active{background:#f0f2f5;color:var(--ink);font-weight:700}.modal{position:fixed;inset:0;background:rgba(17,24,39,.42);display:flex;align-items:flex-end;z-index:30}.sheet{width:100%;max-width:560px;margin:0 auto;background:#fff;border-radius:24px 24px 0 0;padding:18px 16px calc(18px + env(safe-area-inset-bottom));max-height:88vh;overflow:auto}.sheet h3{margin:0 0 10px}.notice{padding:12px;border-radius:14px;background:#fff7e6;color:#8a5500;font-size:13px;margin:10px 0}.sync{font-size:12px;color:var(--muted)}
+</style>
+</head>
+<body>
+<div id="app" class="app">
+  <div class="top">
+    <div><div class="brand">Workshop Shift</div><div class="sub" id="todayLabel"></div></div>
+    <button class="pill" id="roleBtn">Сотрудник</button>
+  </div>
+
+  <main id="employeeView">
+    <section id="todayPage">
+      <div class="card hero" id="shiftCard"></div>
+      <div class="section-title">Сегодня</div>
+      <div class="kpis" id="todayKpis"></div>
+      <div class="section-title">Последние записи</div>
+      <div class="list" id="recentList"></div>
+    </section>
+    <section id="shiftsPage" class="hidden"><div class="section-title">Мои смены</div><div class="list" id="shiftsList"></div></section>
+    <section id="moneyPage" class="hidden"><div class="section-title">Деньги</div><div class="card" id="moneyCard"></div><div class="list" id="moneyList"></div></section>
+    <section id="profilePage" class="hidden"><div class="section-title">Профиль</div><div class="card" id="profileCard"></div></section>
+  </main>
+
+  <main id="managerView" class="hidden">
+    <div class="section-title">Панель руководителя</div>
+    <div class="kpis" id="managerKpis"></div>
+    <div class="section-title">Активные смены</div><div class="list" id="activeList"></div>
+    <div class="section-title">На проверке</div><div class="list" id="reviewList"></div>
+    <div class="section-title">Проекты</div><div class="list" id="projectList"></div>
+  </main>
+</div>
+
+<div class="bottom" id="bottomNav"><div class="bottom-inner">
+  <button class="nav active" data-page="todayPage">Сегодня</button>
+  <button class="nav" data-page="shiftsPage">Смены</button>
+  <button class="nav" data-page="moneyPage">Деньги</button>
+  <button class="nav" data-page="profilePage">Профиль</button>
+</div></div>
+
+<div id="modalRoot"></div>
+<script src="config.js"></script>
+<script>
+(function(){
+'use strict';
+const cfg = window.WORKSHOP_SHIFT_CONFIG || {};
+const KEY='workshopShiftDataV3';
+const safeStore={
+  get(){try{return JSON.parse(localStorage.getItem(KEY)||'null')}catch(e){return null}},
+  set(v){try{localStorage.setItem(KEY,JSON.stringify(v));return true}catch(e){return false}}
+};
+const seed={
+  role:'employee', employee:{id:'e1',name:'Сергей',position:'Монтажник',pay:{baseShift:3000,baseHours:12,overtime:350}},
+  projects:[{id:'p1',name:'Film 125'},{id:'p2',name:'Event BMW'},{id:'p3',name:'Coca-Cola Event'}],
+  workTypes:['Изготовление','Сборка','Покраска','Погрузка','Монтаж','Демонтаж','Логистика','Закупка','Прочее'],
+  currentShift:null,
+  shifts:[
+    {id:'s0',date:isoDate(Date.now()-86400000),start:Date.now()-86400000-11*3600000,end:Date.now()-86400000,status:'approved',segments:[{projectId:'p1',workType:'Изготовление',start:Date.now()-86400000-11*3600000,end:Date.now()-86400000-7*3600000},{projectId:'p1',workType:'Монтаж',start:Date.now()-86400000-6.5*3600000,end:Date.now()-86400000}],expenses:[{amount:480,category:'Материалы',projectId:'p1'}],transport:[]}
+  ],
+  expenses:[], queue:[]
+};
+let state=safeStore.get()||seed;
+function persist(){safeStore.set(state)}
+function isoDate(ts){const d=new Date(ts);return d.toISOString().slice(0,10)}
+function fmtTime(ts){return new Date(ts).toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}
+function fmtDur(ms){ms=Math.max(0,ms);const m=Math.floor(ms/60000);const h=Math.floor(m/60);const mm=m%60;return h+' ч '+String(mm).padStart(2,'0')+' мин'}
+function fmtMoney(v){return new Intl.NumberFormat('ru-RU').format(Math.round(v))+' грн'}
+function projectName(id){return (state.projects.find(p=>p.id===id)||{}).name||'Проект'}
+function activeSeg(){const s=state.currentShift;if(!s||!s.segments.length)return null;const x=s.segments[s.segments.length-1];return x.end?null:x}
+function calcShift(s){const end=s.end||Date.now();let work=0;for(const seg of s.segments){work+=(seg.end||end)-seg.start}const p=state.employee.pay;const hours=work/3600000;let pay=p.baseShift;if(hours>p.baseHours)pay+=(hours-p.baseHours)*p.overtime;const exp=(s.expenses||[]).reduce((a,x)=>a+Number(x.amount||0),0);const tr=(s.transport||[]).reduce((a,x)=>a+Number(x.amount||0),0);return{work,pay,exp,tr,total:pay+exp+tr}}
+function todayText(){return new Date().toLocaleDateString('ru-RU',{weekday:'long',day:'numeric',month:'long'})}
+function render(){document.getElementById('todayLabel').textContent=todayText();document.getElementById('roleBtn').textContent=state.role==='employee'?'Сотрудник':'Руководитель';document.getElementById('employeeView').classList.toggle('hidden',state.role!=='employee');document.getElementById('managerView').classList.toggle('hidden',state.role!=='manager');document.getElementById('bottomNav').classList.toggle('hidden',state.role!=='employee');renderShiftCard();renderToday();renderShifts();renderMoney();renderProfile();renderManager()}
+function renderShiftCard(){const el=document.getElementById('shiftCard');const s=state.currentShift;if(!s){el.innerHTML='<div class="label">Смена не начата</div><div style="font-size:28px;font-weight:800;margin:10px 0">Готовы начать?</div><button class="btn primary" id="startShiftBtn">НАЧАТЬ СМЕНУ</button>';document.getElementById('startShiftBtn').onclick=()=>openStart();return}const seg=activeSeg();const status=seg?'● СМЕНА ИДЁТ':'Ⅱ ПАУЗА';const elapsed=calcShift(s).work;el.innerHTML='<div class="label">'+status+'</div><div class="timer" id="liveTimer">'+fmtDur(elapsed)+'</div><div style="font-weight:800">'+(seg?projectName(seg.projectId):'Работа приостановлена')+'</div><div class="muted" style="margin-top:4px">'+(seg?seg.workType:'Пауза')+'</div><div class="row" style="margin-top:18px"><button class="btn '+(seg?'warn':'good')+'" id="pauseBtn">'+(seg?'ПАУЗА':'ПРОДОЛЖИТЬ')+'</button><button class="btn" id="changeBtn">СМЕНИТЬ</button></div><div class="row" style="margin-top:10px"><button class="btn" id="expenseBtn">+ РАСХОД</button><button class="btn" id="transportBtn">ТРАНСПОРТ</button></div><button class="btn danger" id="finishBtn" style="margin-top:10px">ЗАВЕРШИТЬ СМЕНУ</button>';
+document.getElementById('pauseBtn').onclick=togglePause;document.getElementById('changeBtn').onclick=openChange;document.getElementById('expenseBtn').onclick=openExpense;document.getElementById('transportBtn').onclick=openTransport;document.getElementById('finishBtn').onclick=finishShift}
+function renderToday(){const s=state.currentShift;const c=s?calcShift(s):{work:0,pay:0,exp:0,tr:0};document.getElementById('todayKpis').innerHTML='<div class="kpi"><span class="muted">Работа</span><b>'+fmtDur(c.work)+'</b></div><div class="kpi"><span class="muted">Предварительно</span><b>'+fmtMoney(c.pay)+'</b></div><div class="kpi"><span class="muted">Расходы</span><b>'+fmtMoney(c.exp)+'</b></div><div class="kpi"><span class="muted">Транспорт</span><b>'+fmtMoney(c.tr)+'</b></div>';const recent=[];(s?.expenses||[]).slice(-2).forEach(x=>recent.push('Расход · '+x.category+' · '+fmtMoney(x.amount)));(s?.transport||[]).slice(-2).forEach(x=>recent.push('Транспорт · '+x.type+' · '+fmtMoney(x.amount)));document.getElementById('recentList').innerHTML=recent.length?recent.map(x=>'<div class="item">'+x+'</div>').join(''):'<div class="item muted">Пока нет записей</div>'}
+function renderShifts(){const all=[...(state.currentShift?[state.currentShift]:[]),...state.shifts].sort((a,b)=>(b.start||0)-(a.start||0));document.getElementById('shiftsList').innerHTML=all.map(s=>{const c=calcShift(s);return '<div class="item"><div class="item-head"><div><b>'+new Date(s.start).toLocaleDateString('ru-RU')+'</b><div class="muted">'+fmtDur(c.work)+'</div></div><span class="status '+(s.status==='approved'?'good':'warn')+'">'+(s.status==='approved'?'Подтверждено':s.status==='submitted'?'На проверке':'В работе')+'</span></div><div style="margin-top:8px" class="money">'+fmtMoney(c.total)+'</div></div>'}).join('')||'<div class="item muted">Смен пока нет</div>'}
+function renderMoney(){const totals=state.shifts.reduce((a,s)=>{const c=calcShift(s);a.work+=c.pay;a.exp+=c.exp;a.tr+=c.tr;a.total+=c.total;return a},{work:0,exp:0,tr:0,total:0});document.getElementById('moneyCard').innerHTML='<div class="kpis"><div class="kpi"><span class="muted">Работа</span><b>'+fmtMoney(totals.work)+'</b></div><div class="kpi"><span class="muted">Расходы</span><b>'+fmtMoney(totals.exp)+'</b></div><div class="kpi"><span class="muted">Транспорт</span><b>'+fmtMoney(totals.tr)+'</b></div><div class="kpi"><span class="muted">Всего</span><b>'+fmtMoney(totals.total)+'</b></div></div>';document.getElementById('moneyList').innerHTML=''}
+function renderProfile(){const p=state.employee.pay;document.getElementById('profileCard').innerHTML='<b>'+state.employee.name+'</b><div class="muted">'+state.employee.position+'</div><hr style="border:0;border-top:1px solid var(--line);margin:16px 0"><div>Смена: <b>'+fmtMoney(p.baseShift)+'</b></div><div>Норма: <b>'+p.baseHours+' ч</b></div><div>Переработка: <b>'+fmtMoney(p.overtime)+'/ч</b></div><div class="notice">Демо-режим: данные хранятся на этом устройстве. После подключения Supabase здесь появится серверная синхронизация.</div>'}
+function renderManager(){const active=state.currentShift?[state.currentShift]:[];const review=state.shifts.filter(s=>s.status==='submitted');document.getElementById('managerKpis').innerHTML='<div class="kpi"><span class="muted">Работают</span><b>'+active.length+'</b></div><div class="kpi"><span class="muted">На проверке</span><b>'+review.length+'</b></div><div class="kpi"><span class="muted">Проекты</span><b>'+state.projects.length+'</b></div><div class="kpi"><span class="muted">Синхронизация</span><b>'+(cfg.supabaseUrl?'Сервер':'Локально')+'</b></div>';document.getElementById('activeList').innerHTML=active.length?active.map(s=>'<div class="item"><b>'+state.employee.name+'</b><div class="muted">'+fmtDur(calcShift(s).work)+'</div></div>').join(''):'<div class="item muted">Сейчас никто не работает</div>';document.getElementById('reviewList').innerHTML=review.length?review.map(s=>'<div class="item"><div class="item-head"><div><b>'+state.employee.name+'</b><div class="muted">'+new Date(s.start).toLocaleDateString('ru-RU')+' · '+fmtDur(calcShift(s).work)+'</div></div><button class="pill" data-approve="'+s.id+'">Подтвердить</button></div></div>').join(''):'<div class="item muted">Нет смен на проверке</div>';document.querySelectorAll('[data-approve]').forEach(b=>b.onclick=()=>{const s=state.shifts.find(x=>x.id===b.dataset.approve);if(s){s.status='approved';persist();render()}});document.getElementById('projectList').innerHTML=state.projects.map(p=>'<div class="item"><b>'+p.name+'</b><div class="muted">Проект активен</div></div>').join('')}
+function modal(html){document.getElementById('modalRoot').innerHTML='<div class="modal" id="modal"><div class="sheet">'+html+'</div></div>';document.getElementById('modal').onclick=e=>{if(e.target.id==='modal')closeModal()}}
+function closeModal(){document.getElementById('modalRoot').innerHTML=''}
+function options(arr,mapper){return arr.map(mapper).join('')}
+function openStart(){modal('<h3>Начать смену</h3><div class="field"><label>Проект</label><select id="mProject">'+options(state.projects,p=>'<option value="'+p.id+'">'+p.name+'</option>')+'</select></div><div class="field"><label>Работа</label><select id="mWork">'+options(state.workTypes,w=>'<option>'+w+'</option>')+'</select></div><button class="btn primary" id="mStart">НАЧАТЬ</button>');document.getElementById('mStart').onclick=()=>{const now=Date.now();state.currentShift={id:'s'+now,date:isoDate(now),start:now,end:null,status:'active',segments:[{projectId:document.getElementById('mProject').value,workType:document.getElementById('mWork').value,start:now,end:null}],expenses:[],transport:[]};persist();closeModal();render()}}
+function togglePause(){const s=state.currentShift;if(!s)return;const seg=activeSeg();if(seg){seg.end=Date.now();persist();render()}else{openChange(true)}}
+function openChange(resume){modal('<h3>'+(resume?'Продолжить работу':'Сменить работу')+'</h3><div class="field"><label>Проект</label><select id="mProject">'+options(state.projects,p=>'<option value="'+p.id+'">'+p.name+'</option>')+'</select></div><div class="field"><label>Работа</label><select id="mWork">'+options(state.workTypes,w=>'<option>'+w+'</option>')+'</select></div><button class="btn primary" id="mGo">НАЧАТЬ</button>');document.getElementById('mGo').onclick=()=>{const s=state.currentShift;const seg=activeSeg();if(seg)seg.end=Date.now();s.segments.push({projectId:document.getElementById('mProject').value,workType:document.getElementById('mWork').value,start:Date.now(),end:null});persist();closeModal();render()}}
+function openExpense(){modal('<h3>Новый расход</h3><div class="field"><label>Проект</label><select id="eProject">'+options(state.projects,p=>'<option value="'+p.id+'">'+p.name+'</option>')+'</select></div><div class="field"><label>Категория</label><select id="eCat"><option>Материалы</option><option>Инструмент</option><option>Парковка</option><option>Доставка</option><option>Прочее</option></select></div><div class="field"><label>Сумма, грн</label><input id="eAmount" type="number" inputmode="decimal" placeholder="0"></div><button class="btn primary" id="eSave">СОХРАНИТЬ</button>');document.getElementById('eSave').onclick=()=>{const a=Number(document.getElementById('eAmount').value);if(!a)return;state.currentShift.expenses.push({id:'e'+Date.now(),projectId:document.getElementById('eProject').value,category:document.getElementById('eCat').value,amount:a});persist();closeModal();render()}}
+function openTransport(){modal('<h3>Транспорт</h3><div class="field"><label>Тип</label><select id="tType"><option>Такси</option><option>Личный автомобиль</option><option>Топливо</option><option>Другое</option></select></div><div class="field"><label>Компенсация, грн</label><input id="tAmount" type="number" inputmode="decimal" placeholder="0"></div><button class="btn primary" id="tSave">СОХРАНИТЬ</button>');document.getElementById('tSave').onclick=()=>{const a=Number(document.getElementById('tAmount').value);if(!a)return;state.currentShift.transport.push({id:'t'+Date.now(),type:document.getElementById('tType').value,amount:a});persist();closeModal();render()}}
+function finishShift(){const s=state.currentShift;if(!s)return;const seg=activeSeg();if(seg)seg.end=Date.now();s.end=Date.now();s.status='submitted';const c=calcShift(s);modal('<h3>Завершение смены</h3><div class="card"><div>Работа: <b>'+fmtDur(c.work)+'</b></div><div>Начислено: <b>'+fmtMoney(c.pay)+'</b></div><div>Расходы: <b>'+fmtMoney(c.exp)+'</b></div><div>Транспорт: <b>'+fmtMoney(c.tr)+'</b></div><hr style="border:0;border-top:1px solid var(--line)"><div style="font-size:20px">Итого: <b>'+fmtMoney(c.total)+'</b></div></div><button class="btn primary" id="confirmFinish">ОТПРАВИТЬ СМЕНУ</button>');document.getElementById('confirmFinish').onclick=()=>{state.shifts.unshift(s);state.currentShift=null;persist();closeModal();render()}}
+
+document.getElementById('roleBtn').onclick=()=>{state.role=state.role==='employee'?'manager':'employee';persist();render()};document.querySelectorAll('.nav').forEach(btn=>btn.onclick=()=>{document.querySelectorAll('.nav').forEach(x=>x.classList.remove('active'));btn.classList.add('active');['todayPage','shiftsPage','moneyPage','profilePage'].forEach(id=>document.getElementById(id).classList.toggle('hidden',id!==btn.dataset.page))});
+if('serviceWorker' in navigator && location.protocol.startsWith('http')) navigator.serviceWorker.register('./service-worker.js').catch(()=>{});
+setInterval(()=>{if(state.currentShift)renderShiftCard()},30000);
+render();
+})();
+</script>
+</body>
+</html>
