@@ -1,15 +1,14 @@
 {
-  "name": "Workshop Shift",
-  "short_name": "Shift",
-  "description": "Учёт смен, проектов, расходов и транспорта мастерской",
-  "start_url": "./index.html",
+  "name": ".B.A.D.Workshop",
+  "short_name": "B.A.D.Workshop",
+  "description": "Учёт смен, проектов, затрат и оплаты мастерской",
+  "start_url": "./",
   "scope": "./",
   "display": "standalone",
-  "background_color": "#f6f7f9",
-  "theme_color": "#111827",
-  "orientation": "portrait-primary",
+  "background_color": "#f4f5f7",
+  "theme_color": "#111318",
   "icons": [
-    {"src":"icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
-    {"src":"icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
+    {"src":"./icon-192.png","sizes":"192x192","type":"image/png","purpose":"any maskable"},
+    {"src":"./icon-512.png","sizes":"512x512","type":"image/png","purpose":"any maskable"}
   ]
 }
