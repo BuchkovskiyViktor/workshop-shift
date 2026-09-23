@@ -1,5 +1,5 @@
 window.BAD_WORKSHOP_CONFIG = {
-  // Серверную синхронизацию подключим следующим этапом.
-  // supabaseUrl: "https://xxxx.supabase.co",
-  // supabasePublishableKey: "sb_publishable_..."
+  // Серверный этап подключим позже. Не размещайте здесь secret/service_role ключи.
+  supabaseUrl: "",
+  supabasePublishableKey: ""
 };
