@@ -1,5 +1,4 @@
 window.BAD_WORKSHOP_CONFIG = {
-  // Серверный этап подключим позже. Не размещайте здесь secret/service_role ключи.
-  supabaseUrl: "",
-  supabasePublishableKey: ""
+  supabaseUrl: 'PASTE_SUPABASE_PROJECT_URL_HERE',
+  supabasePublishableKey: 'PASTE_SUPABASE_PUBLISHABLE_KEY_HERE'
 };

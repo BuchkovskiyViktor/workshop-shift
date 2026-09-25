@@ -1,0 +1,13 @@
+.B.A.D.Workshop v5 server
+
+- Supabase Auth + PostgreSQL + RLS + Realtime
+- approval workflow for employees
+- no employee/manager role selector
+- shift type per work segment
+- employee shift-type button removed
+- employee "Дела" button added
+- manager/employee todo lists with priority, completion and ordering
+- manager can edit project/work type/shift type/base rate/overtime rate during shift review
+- employee expenses reviewed and mapped to analytics categories by manager
+- private employee notes isolated by database RLS
+- payments, project income/costs, project/employee/global analytics
