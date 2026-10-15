@@ -1,13 +1,16 @@
-.B.A.D.Workshop v5 server
+.B.A.D.Workshop v6 — server update
 
-- Supabase Auth + PostgreSQL + RLS + Realtime
-- approval workflow for employees
-- no employee/manager role selector
-- shift type per work segment
-- employee shift-type button removed
-- employee "Дела" button added
-- manager/employee todo lists with priority, completion and ordering
-- manager can edit project/work type/shift type/base rate/overtime rate during shift review
-- employee expenses reviewed and mapped to analytics categories by manager
-- private employee notes isolated by database RLS
-- payments, project income/costs, project/employee/global analytics
+- Editable project name, description and active/archive state.
+- Manager can edit shift and segment times, project, work type, shift type, employee comments, manager replies and rates.
+- Changing segment shift type clears stale manager rate overrides unless the manager manually enters a new rate; the new type's employee/project rate is used.
+- Manager can approve with calculated pay or an explicit final amount, return for correction, or reject with a reason.
+- Employee can resubmit a returned shift.
+- Full manager editing for employee expenses, payments, project income and direct project costs.
+- Per-employee feature switches; corresponding write restrictions enforced by database triggers.
+- Editable dropdown lists and additional shift types with employee-specific rates.
+- Task description, task comment thread, priority, ordering, date/time reminder, local notification while the app is open, and Telegram reminder flag.
+- Offline local snapshot and queued writes for shift start/end, segment changes, expenses and tasks.
+- Supabase Edge Function for shift-start/end Telegram notifications and scheduled task reminders.
+- Service Worker v6 cache version and offline Supabase library caching attempt.
+
+Upgrade: run supabase-migration-v6.sql on the existing v5 database before deploying the PWA files. Telegram requires separate Edge Function secrets and a cron schedule.
